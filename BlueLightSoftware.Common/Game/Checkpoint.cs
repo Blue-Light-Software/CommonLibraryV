@@ -13,7 +13,13 @@ namespace BlueLightSoftware.Common.Game
         /// <summary>
         /// Gets or sets the reference handle of the checkpoint
         /// </summary>
-        private int Handle { get; }
+        public int Handle { get; }
+
+        /// <summary>
+        /// Gets the check point type
+        /// </summary>
+        /// <seealso cref="https://docs.fivem.net/docs/game-references/checkpoints/"/>
+        public int CheckpointType { get; }
 
         /// <summary>
         /// Gets the position of this <see cref="Checkpoint"/> in the world
@@ -63,12 +69,13 @@ namespace BlueLightSoftware.Common.Game
         /// <param name="handle">The handle of the checkpoint.</param>
         /// <param name="position">The position of the checkpoint. </param>
         /// <param name="pointingTo">The position of the next checkpoint to point to.</param>
-        private Checkpoint(int handle, Vector3 position, Vector3 pointingTo, Color color)
+        private Checkpoint(int handle, Vector3 position, Vector3 pointingTo, Color color, int type)
         {
             Handle = handle;
             Position = position;
             PointingTo = pointingTo;
             Color = color;
+            CheckpointType = type;
         }
 
         /// <summary>
@@ -209,6 +216,23 @@ namespace BlueLightSoftware.Common.Game
         /// <returns>returns the handle of the checkpoint</returns>
         public static Checkpoint Create(Vector3 pos, Color color, int type = 47, float radius = 5f, float nearHeight = 3f, float farHeight = 3f, bool forceGround = false, int number = 0)
         {
+            return Create(pos, Vector3.Zero, color, type, radius, nearHeight, farHeight, forceGround, number);
+        }
+
+        /// <summary>
+        /// Creates a checkpoint at the specified location, and returns the handle
+        /// </summary>
+        /// <remarks>
+        /// Checkpoints are already handled by the game itself, so you must not loop it like markers.
+        /// </remarks>
+        /// <seealso cref="https://docs.fivem.net/docs/game-references/checkpoints/"/>
+        /// <param name="type">The type of checkpoint to create.</param>
+        /// <param name="pos">The position of the checkpoint</param>
+        /// <param name="radius">The radius of the checkpoint cylinder</param>
+        /// <param name="color">The color of the checkpoint</param>
+        /// <returns>returns the handle of the checkpoint</returns>
+        public static Checkpoint Create(Vector3 pos, Vector3 pointsTo, Color color, int type = 47, float radius = 5f, float nearHeight = 3f, float farHeight = 3f, bool forceGround = false, int number = 0)
+        {
             if (forceGround)
             {
                 var level = World.GetGroundZ(pos, true, false);
@@ -223,7 +247,7 @@ namespace BlueLightSoftware.Common.Game
             Natives.SetCheckpointCylinderHeight(handle, nearHeight, farHeight, radius);
 
             // return handle
-            return new Checkpoint(handle, pos, pos, color);
+            return new Checkpoint(handle, pos, pos, color, type);
         }
 
         #region overrides

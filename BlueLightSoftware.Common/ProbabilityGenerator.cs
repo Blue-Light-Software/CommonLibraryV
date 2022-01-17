@@ -9,7 +9,7 @@ namespace BlueLightSoftware.Common
     /// </summary>
     /// <remarks>P( T item ) = item.Probability / CumulativeProbability</remarks>
     /// <typeparam name="T"></typeparam>
-    public sealed class ProbabilityGenerator<T> where T : ISpawnable
+    public sealed class ProbabilityGenerator<T> where T : IProbable
     {
         /// <summary>
         /// A true random number generator
@@ -186,7 +186,7 @@ namespace BlueLightSoftware.Common
         /// <summary>
         /// Rebuilds the internal item pool
         /// </summary>
-        internal void Rebuild()
+        public void Rebuild()
         {
             T[] items = GetItems();
 

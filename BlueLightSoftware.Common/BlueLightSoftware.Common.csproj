@@ -69,11 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CryptoRandom.cs" />
+    <Compile Include="Extensions\BlipExtensions.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\Vector3Extensions.cs" />
     <Compile Include="Game\Checkpoint.cs" />
-    <Compile Include="ISpawnable.cs" />
+    <Compile Include="IProbable.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="Linq\DynamicLinq.cs" />
     <Compile Include="Linq\ExpressionParser.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="ProbableItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Range.cs" />
-    <Compile Include="Spawnable.cs" />
+    <Compile Include="Prospect.cs" />
     <Compile Include="Xml\XmlFileBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
